@@ -78,6 +78,26 @@
       margin-top: 8px;
     }
 
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 15px;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef5ef;
+      color: var(--green-dark);
+    }
+
     .lede {
       margin-top: 16px;
       color: var(--muted);
@@ -108,53 +128,104 @@
   <main>
     <article>
       <h1>Arus Privacy Policy</h1>
-      <p class="lede">Arus is a local Android app for tracking selected bank transaction notifications. The app is designed to keep financial data on the user's device unless the user explicitly chooses to export or share it.</p>
+      <p class="lede">Arus is a local Android app provided by Leap Consulting for tracking selected bank transaction notifications. Arus is designed to keep financial data on the user's device unless the user explicitly chooses to export or share it.</p>
       <p class="meta">Effective date: July 9, 2026</p>
 
       <div class="callout">
-        <p>Arus does not run a cloud service, does not sell personal data, and does not automatically upload transaction or notification data to Leap Consulting or any third party.</p>
+        <p>Arus does not run a cloud service, does not sell personal data, and does not automatically upload transaction, balance, account, or notification data to Leap Consulting or any third party.</p>
       </div>
 
-      <h2>Data Arus Processes</h2>
-      <p>After the user grants Android notification access, Arus can read notifications from supported banking apps. Depending on what the bank includes in the notification, this may include:</p>
+      <h2>Who Provides Arus</h2>
+      <p>Arus is provided by Leap Consulting. For privacy questions, use the developer contact email address published for Arus on Google Play.</p>
+
+      <h2>What Arus Does</h2>
+      <p>Arus helps the user create a local transaction timeline and estimated account balances from bank app notifications. The app currently targets supported bank notification formats for Jenius, Livin' by Mandiri, and CIMB OCTO. Supported banks and formats may change over time as bank apps change their notifications.</p>
+
+      <h2>Notification Access</h2>
+      <p>Arus can access bank notification content only after the user enables Android notification access for Arus. Once enabled, Android may deliver supported bank notifications to Arus even when the Arus app is closed or not actively being used. Arus uses this access to detect transaction notifications, parse transaction details, and store a local event log for the user's transaction history.</p>
+      <p>The user can disable notification access at any time in Android system settings. If notification access is disabled, Arus will stop receiving new notifications.</p>
+
+      <h2>Data Arus Accesses Or Stores</h2>
+      <p>Depending on the user's setup and what a bank includes in its notifications, Arus may access, process, or store the following data on the device:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Data type</th>
+            <th>Examples</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bank notification data</td>
+            <td>Bank app name, Android package name, notification title, notification text, expanded notification text, posted time, captured time, and local notification hash.</td>
+            <td>Detect supported bank notifications, parse transactions, diagnose unsupported notification formats, and avoid duplicate processing.</td>
+          </tr>
+          <tr>
+            <td>Financial and payment information</td>
+            <td>Transaction amount, currency, money in or money out direction, merchant, sender, recipient, description, transaction timestamp, bank, account label, and parser status.</td>
+            <td>Create a local transaction ledger and calculate balances from user-confirmed checkpoints.</td>
+          </tr>
+          <tr>
+            <td>User-entered account data</td>
+            <td>Bank selection, account alias, notes, manually entered balance checkpoints, and balance confirmation timestamps.</td>
+            <td>Let the user organize transactions by account and maintain estimated per-account and global balances.</td>
+          </tr>
+          <tr>
+            <td>Diagnostics data</td>
+            <td>Parser version, app version, supported bank package names, raw notification records, parse status, transactions, accounts, and replay health.</td>
+            <td>Help the user or developer understand whether bank notification formats are being parsed correctly.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Data Arus Does Not Intentionally Access</h2>
       <ul>
-        <li>Bank app name and package name.</li>
-        <li>Notification title, message text, expanded text, and notification timestamp.</li>
-        <li>Parsed transaction details such as amount, merchant or sender, direction, bank, account label, and transaction time.</li>
-        <li>Account aliases, notes, manually entered balance checkpoints, calculated balances, and app diagnostic metadata.</li>
+        <li>Arus does not request location, contacts, microphone, camera, SMS, phone call logs, or calendar access.</li>
+        <li>Arus does not ask for bank login credentials, PINs, passwords, one-time passwords, or card numbers.</li>
+        <li>Arus does not intentionally process non-bank notifications. Unsupported app notifications are ignored by the app's allowlist.</li>
       </ul>
 
       <h2>How Data Is Used</h2>
-      <p>Arus uses captured notification data to build a local transaction timeline, estimate account balances from user-confirmed balance checkpoints, detect unsupported notification formats, and create user-requested diagnostic exports.</p>
+      <p>Arus uses captured notification data to build a local transaction timeline, estimate balances from user-confirmed balance checkpoints, detect unsupported notification formats, export CSV files when requested by the user, and create user-requested diagnostics reports.</p>
+
+      <h2>Data Sharing</h2>
+      <p>Arus does not automatically transmit personal or sensitive user data to Leap Consulting, cloud servers, analytics providers, advertising networks, or data brokers. Arus does not sell personal or sensitive user data.</p>
+      <p>The user may choose to export CSV files or diagnostics reports. Those exports are user-initiated. When the user chooses to share an export through email, messaging, cloud storage, or another app, the chosen app or service handles the shared file under its own privacy practices.</p>
 
       <h2>Storage And Security</h2>
-      <p>Arus stores app data locally on the Android device. The local database is encrypted at rest using SQLCipher. Access to notification data requires the Android notification listener permission, which the user can enable or disable in Android system settings.</p>
+      <p>Arus stores app data locally on the Android device. The local database is encrypted at rest using SQLCipher, with database access controlled by the Android app sandbox and the app's local encryption key handling. Arus does not operate a remote database or synchronization server.</p>
+      <p>Exports created by the user may be stored temporarily in app cache or in the destination selected by the user. Exported files are no longer controlled by Arus after the user shares or stores them outside the app.</p>
 
       <h2>Diagnostics And Sharing</h2>
-      <p>Arus can create a diagnostics report to help improve notification parsing. This report may include raw notification text and parsed transaction data. The report is created only when the user taps the diagnostics export action and chooses where to send it through Android's share or email interface.</p>
-      <p>Arus does not automatically send diagnostics reports. The user controls whether a report is shared and who receives it.</p>
+      <p>Arus can create a diagnostics report to help improve notification parsing. This report may include raw notification text, parsed transaction data, account aliases, balance checkpoints, parser status, and app metadata. The report is created only when the user taps the diagnostics export action and chooses where to send it through Android's share or email interface.</p>
+      <p>Arus does not automatically send diagnostics reports. The user controls whether a report is shared, which app is used to share it, and who receives it.</p>
 
       <h2>Third Parties</h2>
-      <p>Arus does not include advertising SDKs, analytics SDKs, or third-party tracking. If the user chooses to send a diagnostics report by email or another sharing app, that chosen app or service processes the shared file under its own privacy practices.</p>
+      <p>Arus does not include advertising SDKs, analytics SDKs, or third-party tracking SDKs. Arus uses Android platform features such as notification listener access, local storage, file sharing, and the Android share sheet.</p>
 
       <h2>Data Retention And Deletion</h2>
-      <p>Arus keeps local transaction, notification, and balance data until the user deletes it, wipes data inside the app, uninstalls the app, or clears app storage through Android settings.</p>
+      <p>Arus keeps local notification, transaction, account, and balance data until the user deletes it, wipes data inside the app, uninstalls the app, or clears app storage through Android settings. Deleting local app data removes the local database from the device. Files that the user previously exported or shared must be deleted separately from the place where the user saved or sent them.</p>
 
       <h2>User Controls</h2>
       <ul>
         <li>The user can disable notification access in Android settings at any time.</li>
         <li>The user can delete local app data using the app's wipe action or Android system storage controls.</li>
         <li>The user can choose whether to export diagnostics or CSV files.</li>
+        <li>The user can choose whether to set up accounts and balance checkpoints. Arus can capture supported bank notifications for analysis even before accounts are configured.</li>
       </ul>
+
+      <h2>Legal Requests And Safety</h2>
+      <p>Because Arus does not operate a cloud service for transaction data, Leap Consulting generally does not possess users' local transaction records. If Leap Consulting receives a valid legal request for information it actually holds, it will respond according to applicable law.</p>
 
       <h2>Children</h2>
       <p>Arus is not intended for children and is not designed to collect data from children.</p>
 
       <h2>Changes</h2>
-      <p>This policy may be updated when Arus changes how it processes or protects data. The effective date above will be updated when material changes are made.</p>
+      <p>This policy may be updated when Arus changes how it processes, protects, or shares data. The effective date above will be updated when material changes are made.</p>
 
       <h2>Contact</h2>
-      <p>For privacy questions, contact the developer using the support email address listed for Arus on Google Play.</p>
+      <p>For privacy questions, contact Leap Consulting using the developer support email address listed for Arus on Google Play.</p>
     </article>
   </main>
 </body>
